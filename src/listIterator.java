@@ -1,8 +1,9 @@
 import java.io.*;
+import java.util.List;
 
 public class listIterator {
 
-    public void listIt(String[] args) {
+    public void listIt(String[] args, List<File> lista) {
         /* if (args.length < 1) {
             System.out.println("ERROR. Ejecutar: >java ListIt nombre_archivo");
             return;
@@ -16,7 +17,7 @@ public class listIterator {
         }
 
         if (fichero.isDirectory()) {
-            listarDirectorio(fichero);
+            listarDirectorio(fichero, lista);
         } else {
             try {
                 /* Interesante filtrar previamente archivos solo textuales, como los
@@ -35,13 +36,13 @@ public class listIterator {
         }
     }
 
-    private void listarDirectorio(File directorio) {
+    private void listarDirectorio(File directorio, List<File> lista) {
         File[] files = directorio.listFiles();
         if (files != null) {
             for (File file : files) {
-                System.out.println(file.getParentFile().getName() + "/" + file.getName());     //.getAbsolutePath() para mostrar la ruta absoluta del archivo
+                lista.add(file);
                 if (file.isDirectory()) {
-                    listarDirectorio(file);
+                    listarDirectorio(file, lista);
                 }
             }
         }
