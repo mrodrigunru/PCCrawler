@@ -7,7 +7,7 @@
 import java.io.*;
 import java.util.*;
 
-public class objetoUtilities {
+public class objectUtilities {
     public  void salvar (String args[]) {
         Hashtable <String, Object> h = new Hashtable <String, Object> ();
         h.put("String","Luis Rodriguez Duran");
