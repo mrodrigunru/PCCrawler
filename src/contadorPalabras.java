@@ -1,20 +1,25 @@
 
-
-    /*
-     * FichContPalabras.java: Contabiliza palabras contenidas en un fichero
-     * (i) Felix R. Rguez., EPCC, Universidad de Extremadura, 2009-23
-     * http://madiba.unex.es/
-     */
-
 import java.io.*;
 import java.util.*;
 
+    /**
+     * Clase que proporciona métodos para contar palabras en archivos y guardar los resultados en un archivo de salida.
+     */
     public class contadorPalabras {
 
+        /**
+         * Cuenta palabras en los archivos especificados y guarda los resultados en un archivo de salida.
+         *
+         * @param listaFicheros La lista de archivos en los que se contarán las palabras.
+         * @param fichSalida La ruta del archivo donde se guardarán los resultados del conteo de palabras.
+         * @throws IOException Si ocurre un error de entrada/salida al leer/escribir archivos.
+         */
         public  void contador (List<File> listaFicheros, String fichSalida) throws IOException {
 
+            // Mapa para almacenar las palabras y su frecuencia
             Map <String, Integer> map = new TreeMap <String, Integer> ();
 
+            // Iterar sobre cada archivo en la lista para parsear las palabras
             for(File ficheroActual : listaFicheros){
                 if(!ficheroActual.isDirectory()){
                     BufferedReader br = new BufferedReader (new FileReader (ficheroActual.getAbsolutePath()));
@@ -42,6 +47,8 @@ import java.util.*;
             }
             System.out.println("----------------Contenido del map-------------");
             System.out.println(map.keySet().toString());
+
+            // Ordenar las claves del mapa alfabéticamente y escribirlas en el archivo de salida
             List <String> claves = new ArrayList <String> (map.keySet ());
             Collections.sort (claves);
 
