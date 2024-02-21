@@ -12,19 +12,18 @@ public class Main {
 
         List<File> listaFicheros = new ArrayList<File>();
         li.listIt(direccion, listaFicheros);
-        /* for(File file : listaFicheros){
+
+        //Mostrar los ficheros **test**
+         for(File file : listaFicheros){
             System.out.println(file.getParentFile().getName() + "/" + file.getName());
         }
-        */
 
-        String ficheroAContar;
-        String salida = "C:\\Users\\manur\\salida.txt";
-        for (File file : listaFicheros){
-            //String [] argumentos = {file,salida};
 
+        String salida = "C:\\Users\\manur\\palabras.txt";
+       // for (File file : listaFicheros){
             contadorPalabras cp = new contadorPalabras();
-            cp.contador(file, salida);
-        }
+            cp.contador(listaFicheros, salida);
+       // }
 
 
 

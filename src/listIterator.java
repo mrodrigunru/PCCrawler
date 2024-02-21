@@ -3,13 +3,13 @@ import java.util.List;
 
 public class listIterator {
 
-    public void listIt(String[] args, List<File> lista) {
-        /* if (args.length < 1) {
+    public void listIt(String[] direccion, List<File> lista) {
+        /* if (direccion.length < 1) {
             System.out.println("ERROR. Ejecutar: >java ListIt nombre_archivo");
             return;
         }*/
 
-        File fichero = new File(args[0]);
+        File fichero = new File(direccion[0]);
 
         if (!fichero.exists() || !fichero.canRead()) {
             System.out.println("ERROR. No puedo leer " + fichero);
