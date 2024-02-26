@@ -72,8 +72,8 @@ public class listIterator {
      * @param direccion La ruta del directorio que se va a listar.
      * @param lista La lista donde se almacenarán los archivos listados.
      */
-    public void listIt(String[] direccion, List<File> lista) {
-        File fichero = new File(direccion[0]);
+    public void listIt(String direccion, List<File> lista) {
+        File fichero = new File(direccion);
         if (!fichero.exists() || !fichero.canRead()) {
             System.out.println("ERROR. No puedo leer " + fichero);
             return;
