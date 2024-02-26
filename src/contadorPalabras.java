@@ -29,13 +29,13 @@ import java.util.*;
                         StringTokenizer st = new StringTokenizer (linea, " ,.:;(){}!°?\t'%/|[]<=>&#+*$-¨^~");
                         while (st.hasMoreTokens () ) {
                             String s = st.nextToken();
-                            Object o = map.get(s);  //busca la cadena s en el mapa
+                            Object o = map.get(s.toLowerCase());  //busca la cadena s en el mapa
                             if (o == null){
-                                map.put (s, 1); //si no está, se guarda con un contador con valor 1
+                                map.put (s.toLowerCase(), 1); //si no está, se guarda con un contador con valor 1
                             }
                             else {  //si está, se actualiza el valor del contador en 1
                                 int cont =  (int) o;
-                                map.put (s, cont + 1);
+                                map.put (s.toLowerCase(), cont + 1);
                             }
                         }
                     }
@@ -45,8 +45,7 @@ import java.util.*;
                 }
 
             }
-            System.out.println("----------------Contenido del map-------------");
-            System.out.println(map.keySet().toString());
+
 
             // Ordenar las claves del mapa alfabéticamente y escribirlas en el archivo de salida
             List <String> claves = new ArrayList <String> (map.keySet ());
@@ -60,6 +59,8 @@ import java.util.*;
             }
             pr.close ();
 
+            System.out.println("----------------Contenido del map-------------");
+            System.out.println(map.toString());
         }
     }
 
