@@ -1,8 +1,6 @@
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * Clase principal para ejecutar el programa
@@ -10,9 +8,20 @@ import java.util.TreeMap;
  */
 public class Main {
 
-    TreeMap term_idx; //diccionario de terminos
-    TreeMap thesaurus; //Thesauro
+    static Map term_idx = new TreeMap(); //diccionario de terminos
+    static TreeMap thesaurus = new TreeMap(); //Thesauro
     static String direccion = "C:\\Users\\manur\\ribw";
+    static objectUtilities ou = new objectUtilities();
+
+    static contadorPalabras cp = new contadorPalabras();
+
+    static listIterator li = new listIterator();
+
+    static File diccionario;
+    static File thesauro;
+
+
+
 
 
     /**
@@ -21,44 +30,74 @@ public class Main {
      * @param args Los argumentos de la línea de comandos (no se utilizan en este programa).
      * @throws IOException Si ocurre un error de entrada/salida al listar los archivos o contar palabras.
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
 
 
-        File diccionario = new File("diccionario.ser");
+
+        diccionario = new File("diccionario.ser");
 
         if (diccionario.exists()){
-            System.out.println("existe");
-            //TODO cargar al treemap
+
+            ou.cargar(term_idx, "diccionario.ser");
+
+          //  System.out.println("------------Diccionario.ser-----------");
+          //  System.out.println(term_idx.toString());
 
         }else {
-            diccionario.createNewFile();
+
 
 
             // Lista para almacenar los archivos encontrados
             List<File> listaFicheros = new ArrayList<File>();
 
-            listIterator li = new listIterator();
+
             li.listIt(direccion, listaFicheros);
 
             //Mostrar los ficheros para testear
-            for (File file : listaFicheros) {
-                System.out.println(file.getParentFile().getName() + "/" + file.getName());
-            }
+           // for (File file : listaFicheros) {
+            //    System.out.println(file.getParentFile().getName() + "/" + file.getName());
+            //}
 
-            String salida = "C:\\Users\\manur\\palabras.txt";
 
-            contadorPalabras cp = new contadorPalabras();
-            cp.contador(listaFicheros, salida);
+            cp.contador(listaFicheros);
         }
+        thesauro = new File("thesauro.ser");
 
+        if (thesauro.exists()){
 
+            ou.cargar(thesaurus,"thesauro.ser");
+
+            //System.out.println("------------Thesauro.ser-----------");
+            //System.out.println(thesaurus.toString());
+
+        }else {
+
+            ou.procesadorThesauro();
+
+        }
+        // Crear un objeto Scanner para leer desde la consola
+        Scanner scanner = new Scanner(System.in);
+
+        while(true){
+
+            System.out.print("Palabra (ESC para salir): ");
+
+            String palabra = scanner.nextLine();
+
+            if(!palabra.toUpperCase().equals("ESC")){
+                if(term_idx.containsKey(palabra) && thesaurus.containsKey(palabra)){
+                    System.out.println("Término: " + palabra + "\nVeces que aparece: "+ term_idx.get(palabra));
+                }
+            } else break;
+
+        }
 
     }
 }
 
-//TODO si existe el diccionario.ser lo carga al treemap, else llamada al analisis. Al terminar ya no imprime, si no que salva el objeto en diccionario.ser
+// si existe el diccionario.ser lo carga al treemap, else llamada al analisis. Al terminar ya no imprime, si no que salva el objeto en diccionario.ser
 
-//TODO todo lo que se guarde en el treemap se guarda en minuscula y sin acento
+// lo que se guarde en el treemap se guarda en minuscula y sin acento
 
 //TODO si existe el Thesauro cargarlo en otro treemap
 
