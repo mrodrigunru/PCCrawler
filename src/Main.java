@@ -87,7 +87,7 @@ public class Main {
             if(!palabra.toUpperCase().equals("ESC")){
                 if(term_idx.containsKey(palabra) && thesaurus.containsKey(palabra)){
                     System.out.println("Término: " + palabra + "\nVeces que aparece: "+ term_idx.get(palabra));
-                }
+                } else System.out.println("El término "+ palabra + " no ha lanzado resultados o no es una palabra clave");
             } else break;
 
         }
