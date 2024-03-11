@@ -44,9 +44,7 @@ public class Main {
           //  System.out.println(term_idx.toString());
 
         }else {
-
-
-
+            System.out.println("diccionario.ser creado");
             // Lista para almacenar los archivos encontrados
             List<File> listaFicheros = new ArrayList<File>();
 
@@ -73,7 +71,7 @@ public class Main {
         }else {
 
             ou.procesadorThesauro();
-
+            System.out.println("thesauro.ser creado");
         }
         // Crear un objeto Scanner para leer desde la consola
         Scanner scanner = new Scanner(System.in);
@@ -87,7 +85,7 @@ public class Main {
             if(!palabra.toUpperCase().equals("ESC")){
                 if(term_idx.containsKey(palabra) && thesaurus.containsKey(palabra)){
                     System.out.println("Término: " + palabra + "\nVeces que aparece: "+ term_idx.get(palabra));
-                } else System.out.println("El término "+ palabra + " no ha lanzado resultados o no es una palabra clave");
+                } else System.out.println("El término \""+ palabra + "\" no ha lanzado resultados o no es una palabra clave");
             } else break;
 
         }
@@ -99,6 +97,6 @@ public class Main {
 
 // lo que se guarde en el treemap se guarda en minuscula y sin acento
 
-//TODO si existe el Thesauro cargarlo en otro treemap
+// si existe el Thesauro cargarlo en otro treemap
 
-//TODO programar la consulta de palabras y devovler cuantas veces aparece
+// programar la consulta de palabras y devovler cuantas veces aparece

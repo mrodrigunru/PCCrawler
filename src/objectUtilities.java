@@ -112,6 +112,8 @@ public class objectUtilities {
                 }
 
             }
+            br.close();
+            oos.close();
 
         } catch (IOException e) {
             e.printStackTrace();
