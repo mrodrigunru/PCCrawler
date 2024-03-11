@@ -28,7 +28,7 @@ public class objectUtilities {
         }
     }
 
-    public void cargar(Map<String, Object> m, String nombreFich) {
+    public void cargarDic(Map<String, Ocurrencia> m, String nombreFich) {
         try {
             FileInputStream fis = new FileInputStream(nombreFich);
             ObjectInputStream ois = new ObjectInputStream(fis);
@@ -42,21 +42,8 @@ public class objectUtilities {
                 while (true) {
                     try {
 
-                        Map<String, Object> h = (TreeMap<String, Object>) ois.readObject();
+                        Map<String, Ocurrencia> h = (TreeMap<String, Ocurrencia>) ois.readObject();
                         m.putAll(h);
-                        //System.out.println(h.toString());
-
-                    } catch (EOFException eofe) {
-                        break;
-                    }
-
-                }
-            } else {
-                while (true) {
-                    try {
-
-                        String palabra = (String) ois.readObject();
-                        m.put(palabra,palabra);
                         //System.out.println(h.toString());
 
                     } catch (EOFException eofe) {
@@ -73,6 +60,26 @@ public class objectUtilities {
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public void cargarThe(Map<String, Object> m, String nombreFich) throws IOException {
+
+        if(nombreFich.equals("thesauro.ser")){
+            FileInputStream fis = new FileInputStream(nombreFich);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            while (true) {
+                try {
+
+                    String palabra = (String) ois.readObject();
+                    m.put(palabra,palabra);
+                    //System.out.println(h.toString());
+
+                } catch (EOFException | ClassNotFoundException eofe) {
+                    break;
+                }
+
+            }
         }
     }
 

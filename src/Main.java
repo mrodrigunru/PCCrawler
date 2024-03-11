@@ -8,8 +8,8 @@ import java.util.*;
  */
 public class Main {
 
-    static Map term_idx = new TreeMap(); //diccionario de terminos
-    static TreeMap thesaurus = new TreeMap(); //Thesauro
+    private static Map<String,Ocurrencia> term_idx = new TreeMap<String, Ocurrencia>(); //diccionario de terminos
+    private static Map<String, Object> thesaurus = new TreeMap<String, Object>(); //Thesauro
     static String direccion = "C:\\Users\\manur\\ribw";
     static objectUtilities ou = new objectUtilities();
 
@@ -38,7 +38,7 @@ public class Main {
 
         if (diccionario.exists()){
 
-            ou.cargar(term_idx, "diccionario.ser");
+            ou.cargarDic(term_idx, "diccionario.ser");
 
           //  System.out.println("------------Diccionario.ser-----------");
           //  System.out.println(term_idx.toString());
@@ -63,7 +63,7 @@ public class Main {
 
         if (thesauro.exists()){
 
-            ou.cargar(thesaurus,"thesauro.ser");
+            ou.cargarThe(thesaurus,"thesauro.ser");
 
             //System.out.println("------------Thesauro.ser-----------");
             //System.out.println(thesaurus.toString());
@@ -82,7 +82,7 @@ public class Main {
 
             String palabra = scanner.nextLine();
 
-            if(!palabra.toUpperCase().equals("ESC")){
+            if(!palabra.equalsIgnoreCase("ESC")){   //equalsIgnoreCase es igual a .toLowerCase().equals()
                 if(term_idx.containsKey(palabra) && thesaurus.containsKey(palabra)){
                     System.out.println("Término: " + palabra + "\nVeces que aparece: "+ term_idx.get(palabra));
                 } else System.out.println("El término \""+ palabra + "\" no ha lanzado resultados o no es una palabra clave");
@@ -93,10 +93,6 @@ public class Main {
     }
 }
 
-// si existe el diccionario.ser lo carga al treemap, else llamada al analisis. Al terminar ya no imprime, si no que salva el objeto en diccionario.ser
-
-// lo que se guarde en el treemap se guarda en minuscula y sin acento
-
-// si existe el Thesauro cargarlo en otro treemap
-
-// programar la consulta de palabras y devovler cuantas veces aparece
+    //TODO en vez de guardar ahora la frecuencia del termino global en el diccionario, guardar en su lugar un mapa cuya clave es la frecuencia global y el valor un mapa con
+    // los documentos donde aparece y la frecuencia en la que aparece por cada documento (ordenado por frecuencia) la estructura es un objeto de tipo  "ocurrencias" cuyos
+    // valores serán variables de la clase

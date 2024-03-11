@@ -8085,3 +8085,4 @@ zutano;fulano;mengano;perengano
 útero;matriz;seno
 útiles;aperos;bártulos;enseres;efectos;avíos
 úvula;campanilla
+uwu;owo
