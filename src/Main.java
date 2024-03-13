@@ -8,8 +8,8 @@ import java.util.*;
  */
 public class Main {
 
-    private static Map<String,Ocurrencia> term_idx = new TreeMap<String, Ocurrencia>(); //diccionario de terminos
-    private static Map<String, Object> thesaurus = new TreeMap<String, Object>(); //Thesauro
+    private static Map<String,Ocurrencia> term_idx = new TreeMap<>(); //diccionario de terminos
+    private static Map<String, Object> thesaurus = new TreeMap<>(); //Thesauro
     static String direccion = "C:\\Users\\manur\\ribw";
     static objectUtilities ou = new objectUtilities();
 
@@ -40,21 +40,16 @@ public class Main {
 
             ou.cargarDic(term_idx, "diccionario.ser");
 
-          //  System.out.println("------------Diccionario.ser-----------");
-          //  System.out.println(term_idx.toString());
 
         }else {
             System.out.println("diccionario.ser creado");
             // Lista para almacenar los archivos encontrados
-            List<File> listaFicheros = new ArrayList<File>();
+            List<File> listaFicheros = new ArrayList<>();
 
 
             li.listIt(direccion, listaFicheros);
 
-            //Mostrar los ficheros para testear
-           // for (File file : listaFicheros) {
-            //    System.out.println(file.getParentFile().getName() + "/" + file.getName());
-            //}
+
 
 
             cp.contador(listaFicheros);
@@ -65,8 +60,6 @@ public class Main {
 
             ou.cargarThe(thesaurus,"thesauro.ser");
 
-            //System.out.println("------------Thesauro.ser-----------");
-            //System.out.println(thesaurus.toString());
 
         }else {
 

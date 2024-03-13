@@ -17,8 +17,8 @@ public class Ocurrencia implements Serializable {
         return totalFreq;
     }
 
-    public void setTotalFreq(Integer totalFreq) {
-        this.totalFreq = totalFreq;
+    public void addTotalFreq() {
+        this.totalFreq++;
     }
 
     public Map<String, Integer> getFTURL() {
