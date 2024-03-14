@@ -8,7 +8,6 @@ import java.util.*;
      */
     public class contadorPalabras {
 
-        private Map<String, Ocurrencia> wordOccurrences = new TreeMap<>();
 
         /**
          * Cuenta palabras en los archivos especificados y guarda los resultados en un archivo de salida.
