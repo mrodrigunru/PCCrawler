@@ -1,24 +1,29 @@
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
 public class Ocurrencia implements Serializable {
 
-    private Integer totalFreq;
+    private int totalFreq;
     private Map<String, Integer> FTURL;
 
-
-    public Ocurrencia(Integer totalFreq, TreeMap<String, Integer> FTURL) {
-        this.totalFreq = totalFreq;
-        this.FTURL = FTURL;
+    // Constructor to initialize totalFreq to 0 and FTURL to an empty HashMap
+    public Ocurrencia() {
+        totalFreq = 0;
+        FTURL = new TreeMap<>();
     }
 
-    public Integer getTotalFreq() {
+    public int getTotalFreq() {
         return totalFreq;
     }
 
-    public void addTotalFreq() {
+    public void incrementTotalFreq() {
         this.totalFreq++;
+    }
+
+    public void setTotalFreq(int nuevo) {
+        this.totalFreq = nuevo;
     }
 
     public Map<String, Integer> getFTURL() {

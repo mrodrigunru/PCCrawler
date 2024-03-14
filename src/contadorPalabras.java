@@ -8,6 +8,8 @@ import java.util.*;
      */
     public class contadorPalabras {
 
+        private Map<String, Ocurrencia> wordOccurrences = new TreeMap<>();
+
         /**
          * Cuenta palabras en los archivos especificados y guarda los resultados en un archivo de salida.
          *
@@ -17,25 +19,45 @@ import java.util.*;
         public  void contador (List<File> listaFicheros) throws IOException {
 
             // Mapa para almacenar las palabras y su frecuencia
-            Map <String, Integer> map = new TreeMap <String, Integer> ();
+            Map <String, Ocurrencia> map = new TreeMap <> ();
+
+            Ocurrencia occ ;
+
+            Map<String, Integer> FTURL = new TreeMap<>();
 
             // Iterar sobre cada archivo en la lista para parsear las palabras
             for(File ficheroActual : listaFicheros){
+
+                //FTURL.put(ficheroActual.getAbsolutePath(),0);
+               // FTURL.put(ficheroActual.getAbsolutePath(),1);
+              //  System.out.println(FTURL.toString());
+
                 if(!ficheroActual.isDirectory()){
                     BufferedReader br = new BufferedReader (new FileReader (ficheroActual.getAbsolutePath()));
                     String linea;
 
+
                     while ( (linea = br.readLine () ) != null) {
                         StringTokenizer st = new StringTokenizer (linea, " ,.:;(){}!°?\t'%/|[]<=>&#+*$-¨^~");
                         while (st.hasMoreTokens () ) {
+
                             String s = st.nextToken();
-                            Object o = map.get(quitarAcentos(s.toLowerCase()));  //busca la cadena s en el mapa
+                            Ocurrencia o = map.get(quitarAcentos(s.toLowerCase()));  //busca la cadena s en el mapa
                             if (o == null){
-                                map.put (quitarAcentos(s.toLowerCase()), 1); //si no está, se guarda con un contador con valor 1
+                               // FTURL.put(ficheroActual.getAbsolutePath(),-1);
+                                //occ.setFTURL(FTURL);
+                                //occ.addTotalFreq();
+                                occ = new Ocurrencia();
+                                occ.setTotalFreq(1);
+                                map.put (quitarAcentos(s.toLowerCase()), occ);
+                               //si no está, se guarda con un contador con valor 1
+
                             }
                             else {  //si está, se actualiza el valor del contador en 1
-                                int cont =  (int) o;
-                                map.put (quitarAcentos(s.toLowerCase()), cont + 1);
+                                int cont =  o.getTotalFreq() + 1;
+                                occ = new Ocurrencia();
+                                occ.setTotalFreq(cont);
+                                map.put (quitarAcentos(s.toLowerCase()), occ);
                             }
                         }
                     }
@@ -43,15 +65,15 @@ import java.util.*;
 
 
                 }
-
+            System.out.println(map);
             }
 
 
             // Ordenar las claves del mapa alfabéticamente y escribirlas en el archivo de salida
-            List <String> claves = new ArrayList <String> (map.keySet ());
+            List <String> claves = new ArrayList <> (map.keySet ());
             Collections.sort (claves);
 
-            FileOutputStream fos = new FileOutputStream("diccionario.ser",true);;
+            FileOutputStream fos = new FileOutputStream("diccionario.ser",true);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
 
             Iterator <String> i = claves.iterator ();

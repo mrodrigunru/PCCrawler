@@ -77,7 +77,7 @@ public class Main {
 
             if(!palabra.equalsIgnoreCase("ESC")){   //equalsIgnoreCase es igual a .toLowerCase().equals()
                 if(term_idx.containsKey(palabra) && thesaurus.containsKey(palabra)){
-                    System.out.println("Término: " + palabra + "\nVeces que aparece: "+ term_idx.get(palabra));
+                    System.out.println("Término: " + palabra + "\nVeces que aparece: "+ term_idx.get(palabra).getTotalFreq());
                 } else System.out.println("El término \""+ palabra + "\" no ha lanzado resultados o no es una palabra clave");
             } else break;
 
