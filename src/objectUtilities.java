@@ -1,69 +1,45 @@
 
+import com.sun.source.tree.Tree;
+
 import java.io.*;
 import java.util.*;
 
 public class objectUtilities {
 
+    TreeMap<String, Ocurrencia> mapa;
 
-    public void salvar(String key, Object value, ObjectOutputStream oos) {
-        /*
-        Hashtable <String, Object> h = new Hashtable <String, Object> ();
-        h.put("String","Luis Rodriguez Duran");
-        h.put("Integer",new Integer(23));
-        h.put("Double",new Double(0.96));
-
-         * en el caso de nuestro PC-Crawler ha de utilizarse la estructura Heap
-         * Map <String, Integer> map
-         */
-
-        Map<String, Object> h = new TreeMap<String, Object>();
-        h.put(key, value);
-
+    public boolean salvar(String fichero, Object ocurrencia){
         try {
+            FileOutputStream fos = new FileOutputStream(fichero);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
 
-            oos.writeObject(h);
+            oos.writeObject(ocurrencia);
 
-        } catch (Exception e) {
-            e.printStackTrace();
+            oos.close();
+            fos.close();
         }
+        catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
-    public void cargarDic(Map<String, Ocurrencia> m, String nombreFich) {
+    public TreeMap<String, Ocurrencia> cargar(String fichero){
         try {
-            FileInputStream fis = new FileInputStream(nombreFich);
+            FileInputStream fis = new FileInputStream(fichero);
             ObjectInputStream ois = new ObjectInputStream(fis);
-            /*
-            Hashtable h = (Hashtable) ois.readObject();
-             en el caso de nuestro PC-Crawler ha de utilizarse la estructura Heap:
-             * Map <String, Integer> map = TreeMap <String, Integer> ois.readObject();
-             */
 
-            if(nombreFich.equals("diccionario.ser")){
-                while (true) {
-                    try {
+            mapa = (TreeMap<String, Ocurrencia>) ois.readObject();
 
-                        Map<String, Ocurrencia> h = (TreeMap<String, Ocurrencia>) ois.readObject();
-                        m.putAll(h);
-                        //System.out.println(h.toString());
-
-                    } catch (EOFException eofe) {
-                        break;
-                    }
-
-                }
-            }
-
-
-
-            fis.close();
             ois.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
+            fis.close();
         }
+        catch (Exception e) {
+            return null;
+        }
+        return mapa;
     }
-
-    public void cargarThe(Map<String, Object> m, String nombreFich) throws IOException {
+    public void cargarThesauro(Map<String, Object> m, String nombreFich) throws IOException {
 
         if(nombreFich.equals("thesauro.ser")){
             FileInputStream fis = new FileInputStream(nombreFich);
@@ -126,4 +102,6 @@ public class objectUtilities {
             e.printStackTrace();
         }
     }
+
+
 }

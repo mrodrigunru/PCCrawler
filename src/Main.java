@@ -8,8 +8,8 @@ import java.util.*;
  */
 public class Main {
 
-    private static Map<String,Ocurrencia> term_idx = new TreeMap<>(); //diccionario de terminos
-    private static Map<String, Object> thesaurus = new TreeMap<>(); //Thesauro
+    private static TreeMap<String,Ocurrencia> term_idx = new TreeMap<>(); //diccionario de terminos
+    private static TreeMap<String, Object> thesaurus = new TreeMap<>(); //Thesauro
     static String direccion = "C:\\Users\\manur\\ribw";
     static objectUtilities ou = new objectUtilities();
 
@@ -30,18 +30,20 @@ public class Main {
      * @param args Los argumentos de la línea de comandos (no se utilizan en este programa).
      * @throws IOException Si ocurre un error de entrada/salida al listar los archivos o contar palabras.
      */
-    public static void main(String[] args) throws IOException, InterruptedException {
-
+    public static void main(String[] args) throws IOException {
 
 
         diccionario = new File("diccionario.ser");
 
+
         if (diccionario.exists()){
 
-            ou.cargarDic(term_idx, "diccionario.ser");
+            term_idx = ou.cargar( "diccionario.ser");
+            System.out.println("diccionario cargado");
 
 
         }else {
+
             System.out.println("diccionario.ser creado");
             // Lista para almacenar los archivos encontrados
             List<File> listaFicheros = new ArrayList<>();
@@ -49,16 +51,13 @@ public class Main {
 
             li.listIt(direccion, listaFicheros);
 
-
-
-
-            cp.contador(listaFicheros);
+            cp.contador(listaFicheros,term_idx);
         }
         thesauro = new File("thesauro.ser");
 
         if (thesauro.exists()){
 
-            ou.cargarThe(thesaurus,"thesauro.ser");
+            ou.cargarThesauro(thesaurus,"thesauro.ser");
 
 
         }else {
@@ -71,13 +70,23 @@ public class Main {
 
         while(true){
 
-            System.out.print("Palabra (ESC para salir): ");
+            System.out.print("Introduce el término a buscar (ESC para salir): ");
 
             String palabra = scanner.nextLine();
 
             if(!palabra.equalsIgnoreCase("ESC")){   //equalsIgnoreCase es igual a .toLowerCase().equals()
                 if(term_idx.containsKey(palabra) && thesaurus.containsKey(palabra)){
                     System.out.println("Término: " + palabra + "\nVeces que aparece: "+ term_idx.get(palabra).getTotalFreq());
+                    //System.out.println(term_idx.get(palabra).getFTURL());
+                    for (Map.Entry<String, Integer> entry : term_idx.get(palabra).getFTURL().entrySet()) {
+                        String path = entry.getKey();
+                        Integer value = entry.getValue();
+
+                       if(value == 1){
+                           System.out.println("Aparece en el fichero: "+ path +" -> " +value+" vez.");
+                       } else  System.out.println("Aparece en el fichero: "+ path +" -> " +value+" veces.");
+                    }
+                    System.out.println("\n");
                 } else System.out.println("El término \""+ palabra + "\" no ha lanzado resultados o no es una palabra clave");
             } else break;
 
@@ -85,7 +94,3 @@ public class Main {
 
     }
 }
-
-    //TODO en vez de guardar ahora la frecuencia del termino global en el diccionario, guardar en su lugar un mapa cuya clave es la frecuencia global y el valor un mapa con
-    // los documentos donde aparece y la frecuencia en la que aparece por cada documento (ordenado por frecuencia) la estructura es un objeto de tipo  "ocurrencias" cuyos
-    // valores serán variables de la clase

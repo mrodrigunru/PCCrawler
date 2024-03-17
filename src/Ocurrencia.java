@@ -6,31 +6,44 @@ import java.util.TreeMap;
 public class Ocurrencia implements Serializable {
 
     private int totalFreq;
-    private Map<String, Integer> FTURL;
+    private Map<String, Integer> FTURL = new TreeMap<>();
 
     // Constructor to initialize totalFreq to 0 and FTURL to an empty HashMap
-    public Ocurrencia() {
-        totalFreq = 0;
-        FTURL = new TreeMap<>();
+    public Ocurrencia(String url) {
+        totalFreq = 1;
+        this.FTURL.put(url,1);
     }
 
     public int getTotalFreq() {
         return totalFreq;
     }
 
-    public void incrementTotalFreq() {
-        this.totalFreq++;
+    public Map<String, Integer> getFTURL() {
+        return FTURL;
     }
+
 
     public void setTotalFreq(int nuevo) {
         this.totalFreq = nuevo;
     }
 
-    public Map<String, Integer> getFTURL() {
-        return FTURL;
+
+    public void setFTURL(Map<String, Integer> nuevo) {
+        this.FTURL = nuevo;
     }
 
-    public void setFTURL(Map<String, Integer> FTURL) {
-        this.FTURL = FTURL;
+    public void addFrequencies(String url){
+        this.totalFreq++;
+        if(this.FTURL.containsKey(url)){
+            int nuevaFreq;
+            nuevaFreq = this.FTURL.get(url) + 1;
+            this.FTURL.put(url, nuevaFreq);
+        }else this.FTURL.put(url,1);
+    }
+
+    @Override
+    public String toString(){
+
+        return totalFreq + " ::::: " + FTURL;
     }
 }
