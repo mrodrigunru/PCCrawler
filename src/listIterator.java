@@ -30,10 +30,7 @@ public class listIterator {
             listarDirectorio(fichero, lista);
         } else {
             try {
-                /* Interesante filtrar previamente archivos solo textuales, como los
-                 * .txt, .java, .c, .cpp, etc., empleando metodos de la clase String:
-                 * lastIndexOf('.'), substring (posic) y equals(".txt")...
-                 */
+
                 FileReader fr = new FileReader(fichero);
                 BufferedReader br = new BufferedReader(fr);
                 String linea;

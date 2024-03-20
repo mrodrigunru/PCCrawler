@@ -20,7 +20,7 @@ public class contadorPalabras {
     for(File fichero : lista){
         if (!fichero.isDirectory()) {
             BufferedReader br = new BufferedReader(new FileReader(fichero));
-            String linea;
+            String linea;       //Tika
 
             while ((linea = br.readLine()) != null) {
                 linea = quitarAcentos(linea);
@@ -40,15 +40,46 @@ public class contadorPalabras {
         }
     }
 
+
+        // Ordenar las claves del mapa alfabéticamente y escribirlas en el archivo de salida
+        List <String> claves = new ArrayList <> (palabras.keySet ());
+        Collections.sort (claves);
+
+        //System.out.println(palabras);
+
+        FileOutputStream fos = new FileOutputStream("diccionario.ser",true);
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+        Iterator <String> i = claves.iterator ();
+        while (i.hasNext ()) {
+            Object k = i.next ();
+
+            objectUtilities ou = new objectUtilities();
+            ou.salvar(oos,(String) k, palabras.get(k));
+        }
+
+        oos.close();
+        fos.close();
+
     }
+
+    /**
+     * Elimina los acentos y normaliza la palabra que se pasa por parámetro
+     *
+     * @param texto Palabra (token) el cuál se normaliza y eliminan los acentos.
+     *
+     */
     public static String quitarAcentos(String texto) {
         String palabraNormalizada = Normalizer.normalize(texto, Normalizer.Form.NFD);
-        return texto.replaceAll("[áÁ]", "a")
+        return palabraNormalizada.replaceAll("[áÁ]", "a")
                 .replaceAll("[éÉ]", "e")
                 .replaceAll("[íÍ]", "i")
                 .replaceAll("[óÓ]", "o")
                 .replaceAll("[úÚ]", "u");
     }
+
+
+
 }
 
 
